@@ -33,7 +33,7 @@ This starts bash on `127.0.0.1:8080` with a randomly generated password. Credent
 
 ```
   ┌─────────────────────────────────────────────┐
-  │           vexShare — Terminal Sharing        │
+  │           vexShare — Terminal Sharing       │
   └─────────────────────────────────────────────┘
 
   Auth Mode    : password
