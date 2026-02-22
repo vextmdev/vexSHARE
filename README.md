@@ -151,8 +151,8 @@ Both `/login` (password) and `/t/{token}/` (token URL) are active.
 
 ```
 ┌─────────┐     WebSocket      ┌──────────┐     PTY      ┌─────────┐
-│ Browser  │ ◄──────────────► │ vexShare  │ ◄──────────► │  bash   │
-│ (xterm)  │                   │  server   │              │ (or cmd)│
+│ Browser │ ◄──────────────►   │ vexShare │ ◄──────────► │  bash   │
+│ (xterm) │                    │  server  │              │(or cmd) │
 └─────────┘                    └──────────┘              └─────────┘
 ```
 
