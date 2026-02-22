@@ -2,7 +2,7 @@
 
 **Share your terminal session securely via browser.**
 
-vexShare is a lightweight CLI tool that starts a local terminal (PTY) and makes it accessible through a browser via WebSocket. It supports password and token-based authentication, TLS, rate limiting, and multi-user viewing.
+vexShare is a CLI tool that starts a local terminal (PTY) and makes it accessible through a browser via WebSocket. It supports password and token-based authentication, TLS, rate limiting, and multi-user viewing.
 
 ## Features
 
