@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vexShare — Login</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .login-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .login-card h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+            color: #58a6ff;
+        }
+        .login-card .subtitle {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8b949e;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: #8b949e;
+            margin-bottom: 0.3rem;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            border-color: #58a6ff;
+        }
+        button {
+            width: 100%;
+            padding: 0.7rem;
+            background: #238636;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #2ea043;
+        }
+        .error-msg {
+            background: #da363340;
+            border: 1px solid #da3633;
+            color: #f85149;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .error-msg.visible { display: block; }
+        .brand {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="brand">&gt;_</div>
+        <h1>vexShare</h1>
+        <p class="subtitle">Terminal Sharing — Log in to continue</p>
+        <div id="error" class="error-msg"></div>
+        <form id="loginForm" method="POST" action="/login">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById('loginForm');
+        const errorEl = document.getElementById('error');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorEl.classList.remove('visible');
+            const body = new URLSearchParams(new FormData(form));
+            try {
+                const resp = await fetch('/login', {
+                    method: 'POST',
+                    body: body,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    redirect: 'follow',
+                });
+                if (resp.redirected) {
+                    window.location.href = resp.url;
+                    return;
+                }
+                if (!resp.ok) {
+                    const text = await resp.text();
+                    errorEl.textContent = text || 'Login failed';
+                    errorEl.classList.add('visible');
+                } else {
+                    window.location.href = '/';
+                }
+            } catch (err) {
+                errorEl.textContent = 'Connection error';
+                errorEl.classList.add('visible');
+            }
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('error')) {
+            errorEl.textContent = params.get('error');
+            errorEl.classList.add('visible');
+        }
+    </script>
+</body>
+</html>
