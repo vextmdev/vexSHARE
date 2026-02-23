@@ -153,7 +153,7 @@ func main() {
 func printBanner(scheme, listen, authMode, user, password, token, cmd string, idleTimeout time.Duration, sharedInput bool) {
 	fmt.Fprintln(os.Stderr)
 	fmt.Fprintln(os.Stderr, "  ┌─────────────────────────────────────────────┐")
-	fmt.Fprintln(os.Stderr, "  │           vexShare — Terminal Sharing        │")
+	fmt.Fprintln(os.Stderr, "  │           vexShare — Terminal Sharing       │")
 	fmt.Fprintln(os.Stderr, "  └─────────────────────────────────────────────┘")
 	fmt.Fprintln(os.Stderr)
 
